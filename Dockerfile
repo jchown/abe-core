@@ -3,14 +3,15 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY *.csproj .
-RUN dotnet restore
+COPY . .
+RUN dotnet build
 
 # copy and publish app and libraries
-COPY . .
+RUN /bin/ls 
 RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/core/runtime:3.1
 WORKDIR /app
 COPY --from=build /app .
-ENTRYPOINT ["./dotnetapp"]
+ENTRYPOINT ["./abe-core"]

@@ -1,0 +1,8 @@
+﻿# How to build Abe using Abe
+
+build: [default] (docker,c#)
+> Dockerfile
+	docker build --pull -t jchown/abe-core .
+
+publish: build
+	docker push jchown/abe
